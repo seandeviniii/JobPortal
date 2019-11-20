@@ -1,0 +1,20 @@
+{% extends 'dashboard.html' %}
+
+{% comment %} {% block title %}Login{% endblock %} {% endcomment %}
+
+{% block dash_content %}
+  <style>
+    label {
+      width: 10%;
+      font-weight: bold;
+    }
+  </style>
+  <h2>Login</h2>
+  <form class="form-group"  method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-outline-secondary" type="submit">Login</button>
+    {% url 'accounts:signup' as register_url %}
+    <a class="btn btn-dark" href="{{ register_url }}">Register</a>
+  </form>
+{% endblock %}

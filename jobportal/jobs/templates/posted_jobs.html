@@ -1,0 +1,23 @@
+{% extends 'dashboard.html' %}
+
+{% comment %} {% block title %}Posted Jobs{% endblock %} {% endcomment %}
+
+{% block dash_content %}
+  <h2>Posted Jobs</h2>
+  <table class="table table-hover" style="background: white;">
+    <tr style="text-align: center;">
+        <th>Index</th>
+        <th>Job Title</th>
+        <th>Last Date</th>
+    </tr>
+    {% for app in jobs %}
+    <tr style="text-align: center;">
+        <td>{{forloop.counter}}</td>
+        <td><a href="{% url 'jobs:all_job_app' app.id %}">{{ app.title }}<a></td>
+        <td>{{ app.last_date }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% url 'accounts:dashboard' as dashboard_url %}
+    <a class="btn btn-dark" href="{{ dashboard_url }}">Dashboard</a>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'dashboard.html' %}
+
+{% comment %} {% block title %}Post Job{% endblock %} {% endcomment %}
+
+{% block dash_content %}
+  <style>
+    label {
+      font-weight: bold;
+      width: 24%;
+    }
+    #id_description {
+      height: 75px;
+    }
+  </style>
+  <h2>Post Job</h2>
+  <br>
+  <form class="form-group" method="post" style="text-align: left; margin-left: 15%">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button style="margin-left: 35%;" class="btn btn-outline-secondary" type="submit">Submit</button>
+  </form>
+  {% if success == False %}
+    <span style="color:red">An error occured.</span>
+  {% endif %}
+  {% url 'accounts:dashboard' as dashboard_url %}
+  <a class="btn btn-dark" class="nav-link" href="{{ dashboard_url }}">Dashboard</a>
+{% endblock %}

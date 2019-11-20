@@ -1,0 +1,34 @@
+{% extends 'dashboard.html' %}
+
+{% comment %} {% block title %}Applicant Details{% endblock %} {% endcomment %}
+
+{% block dash_content %}
+  <h2>Applicant Details</h2>
+  <div class="form-group" style="margin-left: 25%; text-align: left;">
+    <span><b>Name: </b>{{applicant.user.name}}</span>    
+    <br>
+    <span><b>Occupation: </b>{{applicant.user.occupation}}</span>
+    <br>
+    <span><b>Organization: </b>{{applicant.user.company_name}}</span>
+    <br>
+    <span><b>Is a student?: </b>{{applicant.is_student}}</span>
+    <br>
+    <span><b>Name:</b>{{applicant.experience}}</span>
+    <br>
+    <span><b>Name:</b></span>
+    <div class="jumbotron" style="background: white;">{{applicant.description}}</div>
+    <br>
+    <span><b>Skills:</b></span>
+    <div class="jumbotron" style="background: white;">{{applicant.skills}}</div>
+    <br>
+    <span><b>Name:</b></span>
+    <div class="jumbotron" style="background: white;">{{applicant.education}}</div>
+    <br>
+    <span><b>Name:</b></span>
+    <div class="jumbotron" style="background: white;">{{applicant.certification}}</div>
+  </div>
+  {% url 'jobs:all_job_app' as all_app_url %}
+  <a href="{{ all_app_url }}">Back</a>
+  {% url 'accounts:dashboard' as dashboard_url %}
+    <a href="{{ dashboard_url }}">Dashboard</a>
+{% endblock %}

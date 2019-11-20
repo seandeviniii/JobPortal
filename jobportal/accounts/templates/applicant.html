@@ -1,0 +1,33 @@
+{% extends 'dashboard.html' %}
+
+{% comment %} {% block title %}Applicant Info{% endblock %} {% endcomment %}
+
+{% block dash_content %}
+  <style>
+    label {
+      width: 25%;
+      font-weight: bold;
+    }
+    #id_description {
+      height: 100px;
+    }
+    #id_skills {
+      height: 50px;
+    }
+    #id_education {
+      height: 100px;
+    }
+    #id_certification {
+      height: 100px;
+    }
+  </style>
+  <h2>Applicant Information</h2>
+  <br>
+  <form class="form-group"  method="post" style="margin-left:10%; text-align: left;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button style="margin-left: 38%;" class="btn btn-outline-secondary" type="submit">Submit</button>
+  </form>
+  {% url 'accounts:dashboard' as dashboard_url %}
+    <a class="btn btn-dark" href="{{ dashboard_url }}">Dashboard</a>
+{% endblock %}

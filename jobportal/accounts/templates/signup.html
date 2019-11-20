@@ -1,0 +1,30 @@
+{% extends 'dashboard.html' %}
+
+{% block dash_content %}
+  <style>
+    label {
+      font-weight: bold;
+    }
+  </style>
+  <h2>Sign up</h2>
+  <br>
+  <form class="form-group"  method="post" style="text-align: left; margin-left: 15%;">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    
+    <button class="btn btn-outline-secondary" type="submit" style="margin-left: 30%;">Sign up</button>
+    {% url 'accounts:login' as login_url %}
+    <a class="btn btn-dark" href="{{ login_url }}">Login</a>
+  </form>
+{% endblock %}

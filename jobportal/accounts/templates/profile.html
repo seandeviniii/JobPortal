@@ -1,0 +1,27 @@
+{% extends 'dashboard.html' %}
+
+{% comment %} {% block title %}Profile{% endblock %} {% endcomment %}
+
+{% block dash_content %}
+<style>
+    label {
+      width: 20%;
+      text-align: left;
+    }
+    #id_is_recruiter {
+      width: 24%;
+    }
+    #id_gender {
+      width: 24%;
+    }
+  </style>
+  <h2>Profile</h2>
+  <br>
+  <form class="form-group"  method="post" >
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-outline-secondary" type="submit">Submit</button>
+  </form>
+  {% url 'accounts:dashboard' as dashboard_url %}
+    <a class="btn btn-dark" href="{{ dashboard_url }}">Dashboard</a>
+{% endblock %}

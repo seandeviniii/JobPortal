@@ -1,0 +1,24 @@
+{% extends 'dashboard.html' %}
+
+{% comment %} {% block title %}Job Details{% endblock %} {% endcomment %}
+
+{% block dash_content %}
+  <h2>Job Details</h2>
+  <br>
+  <div class="form-group" style="margin-left: 25%; text-align: left;">
+    <span><b>Title: </b>{{job.title}}</span>    
+    <br>
+    <span><b>Description: </b>{{job.description}}</span>
+    <br>
+    <span><b>Pay: </b>Rs. {{job.pay}}</span>
+    <br>
+    <span><b>Last Date: </b>{{job.last_date}}</span>
+  </div>
+  {% if user.profile.is_recruiter == False %}
+  <a class="btn btn-primary" href="{% url 'jobs:apply' job.id %}">Apply</a>
+  {% url 'jobs:all_jobs' as all_jobs_url %}
+    <a class="btn btn-secondary" href="{{ all_jobs_url }}">All Jobs</a>
+  {% endif %}
+  {% url 'accounts:dashboard' as dashboard_url %}
+    <a class="btn btn-dark" href="{{ dashboard_url }}">Dashboard</a>
+{% endblock %}

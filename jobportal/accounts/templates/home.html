@@ -1,0 +1,18 @@
+{% extends 'dashboard.html' %}
+
+{% comment %} {% block title %}Home{% endblock %} {% endcomment %}
+
+{% block dash_content %}
+  <h2>Home</h2>
+  <br>
+  {% if user.is_authenticated %}
+    <h1>Welcome, {{user.profile.name}}!</h1>
+    {% url 'accounts:dashboard' as dashboard_url %}
+    <a class="btn btn-dark" href="{{ dashboard_url }}">Dashboard</a>
+  {% else %}
+    {% url 'accounts:login' as login_url %}
+    <a class="btn btn-dark" href="{{ login_url }}">Login</a>
+    {% url 'accounts:signup' as register_url %}
+    <a class="btn btn-outline-secondary" href="{{ register_url }}">Register</a>
+  {% endif %}
+{% endblock %}

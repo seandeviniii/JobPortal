@@ -1,0 +1,63 @@
+{% include 'base.html' %}
+
+{% comment %} {% block title %}Dashboard{% endblock title %} {% endcomment %}
+
+{% block content %}
+<style>
+  h2 {
+    font-weight: bold;
+    font-family: 'Raleway', sans-serif;
+  }
+</style>
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+  <a class="navbar-brand" href="{% if user.is_authenticated %}{% url 'accounts:dashboard' %}{% else %}{% url 'accounts:home' %}{% endif %}" style="color: orange; font-family: 'Pacifico', cursive;">Job Portal</a>
+  {% if user.is_authenticated %}
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        {% url 'accounts:details' as details_url %}
+        <a class="nav-link" href="{{ details_url }}" style="color: white;">Update Profile</a>
+      </li>
+      {% if user.profile.is_recruiter %}
+      <li class="nav-item">
+        {% url 'jobs:post_job' as post_job_url %}
+        <a class="nav-link" href="{{ post_job_url }}" style="color: white;">Post Job</a>
+      </li>
+      <li class="nav-item">
+        {% url 'jobs:posted_jobs' as posted_jobs_url %}
+        <a class="nav-link" href="{{ posted_jobs_url }}" style="color: white;">Posted Jobs</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        {% url 'jobs:all_jobs' as all_jobs_url %}
+        <a class="nav-link" href="{{ all_jobs_url }}" style="color: white;">All Jobs</a>
+      </li>
+      <li class="nav-item">
+        {% url 'jobs:applied_jobs' as applied_jobs_url %}
+        <a class="nav-link" href="{{ applied_jobs_url }}" style="color: white;">Applied Jobs</a>
+      </li>
+      <li class="nav-item">
+        {% url 'accounts:applicant' as applicant_url %}
+        <a class="nav-link" href="{{ applicant_url }}" style="color: white;">Professional Info</a>
+      </li>
+      {% endif %}
+      <li class="nav-item active float-right">
+        {% url 'accounts:logout' as logout_url %}
+        <a class="nav-link" href="{{ logout_url }}" style="color: white;">Logout</a>
+      </li>
+    </ul>
+  </div>
+  {% endif %}
+</nav>
+
+<div class="jumbotron" style="text-align: center; margin-left: 15%; margin-right: 15%; margin-top: 2%;">
+  {% block dash_content %}
+  <h1>Here's your dashboard, {{user.profile.name}}</h1>
+  {% endblock %}
+</div>
+
+{% endblock %}
