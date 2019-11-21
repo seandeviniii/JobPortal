@@ -19,6 +19,8 @@ def signup(request):
             login(request, user)
             return redirect(reverse('accounts:details'))
     else:
+        if request.user.is_authenticated:
+            return redirect(reverse("accounts:dashboard"))
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
@@ -26,6 +28,9 @@ class GetHome(views.View):
 
     def get(self, request):
 
+        if request.user.is_authenticated:
+            return redirect(reverse("accounts:dashboard"))
+            
         return render(request, 'home.html')
 
 class GetDashboard(views.View):
@@ -144,7 +149,10 @@ class ApplicantView(views.View):
 class ApplicantDetails(views.View):
 
     def get(self, request, id):
-
-        applicant = Applicant.objects.get(id = id)
-
+        
+        try:
+            applicant = Applicant.objects.get(id = id)
+        exccept Applicant.DoesNotExist:
+            return redirect(reverse("jobs:all_job_app"))
+            
         return render(request, 'applicant_details.html', {'applicant':applicant})
